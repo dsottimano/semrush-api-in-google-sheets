@@ -53,7 +53,7 @@ Returns Ranking Semrush Organic keywords per URL
 **Returns**: Access organic keywords for a url from semrush.com database
 **Customfunction**:
 
-| Param | Type | Description |
+| Param | Example | Description |
 | --- | --- | --- |
 | url | <code>&quot;http://example.com&quot;</code> | REQUIRED The exact URL you want data for, MUST include protocol (http/https) |
 | includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
@@ -69,7 +69,7 @@ Returns Semrush Keyword Difficulty for a keyword
 **Returns**: Access keyword difficulty for keyword from semrush
 **Customfunction**:
 
-| Param | Type | Description |
+| Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
@@ -84,7 +84,7 @@ Returns Semrush organic search results for a specific keyword
 **Returns**: Access organic search results for a keyword from semrush.com database
 **Customfunction**:
 
-| Param | Type | Description |
+| Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | limit | <code>10</code> | OPTIONAL Number from 10 to 20, for number of results. Default is 10 |
@@ -99,7 +99,7 @@ Returns Related search queries for a keyword from Semrush
 **Returns**: Returns related queries for a specific keyword from semrush.com
 **Customfunction**:
 
-| Param | Type | Description |
+| Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
@@ -115,7 +115,7 @@ Returns Keyword Volume from semrush
 **Returns**: Returns search volume, cpc, etc..
 **Customfunction**:
 
-| Param | Type | Description |
+| Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
