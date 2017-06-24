@@ -39,7 +39,7 @@ Returns Semrush Organic keywords for a specified domain
 | filterBy | <code>true</code> | OPTIONAL Use true to include the query in the filter or false to remove the query in the filter. Default is true |
 | matchType | <code>true</code> | OPTIONAL Use true for partial match, use false for exact match. Default is true, partial match |
 | query | <code>&quot;apartments&quot;</code> | OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes". |
-| limit | <code>10</code> | OPTIONAL Number from 1 to 100000 |
+| limit | <code>10</code> | OPTIONAL Number from 1 to 10000 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
 | includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | date | <code>201601</code> | OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. |
