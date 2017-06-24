@@ -37,7 +37,6 @@ Returns Semrush Organic keywords for a specified domain
 | --- | --- | --- |
 | domain | <code>&quot;example.com&quot;</code> | REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https) |
 | filterBy | <code>true</code> | OPTIONAL Use true to include the query in the filter or false to remove the query in the filter. Default is true |
-
 | matchType | <code>true</code> | OPTIONAL Use true for partial match, use false for exact match. Default is true, partial match |
 | query | <code>&quot;apartments&quot;</code> | OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes". |
 | limit | <code>10</code> | OPTIONAL Number from 1 to 100000 |
