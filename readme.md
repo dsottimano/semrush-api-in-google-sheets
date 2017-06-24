@@ -1,4 +1,4 @@
-## Blog post: 
+## Read the Blog post first: 
 <a href="http://opensourceseo.org/semrush-api-library-google-sheets-google-scripts">Semrush API Google sheets</a>
 
 ## Functions
