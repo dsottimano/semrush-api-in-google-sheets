@@ -131,28 +131,6 @@ function domainOverview(domain,db,includeHeader,date) {
   
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 * Returns Semrush Organic keywords for a specified domain
 *
