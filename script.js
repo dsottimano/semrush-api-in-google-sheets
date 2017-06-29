@@ -16,7 +16,7 @@
 * -------------------------------------------------------------------------*/
 var Global = {
   data : {
-    apiKey : "ENTER YOUR API KEY HERE",
+    apiKey : "ENTER API KEY HERE",
     errorMessage : "Sorry, either you don't have valid API key in the Global object in the script editor or you don't have credits, please check your credentials and balance at https://www.semrush.com/billing-admin/profile/subscription/api-units",
     defaultDb : "us"
   },
@@ -27,6 +27,7 @@ var Global = {
     phraseOrganic : "http://api.semrush.com/?type=phrase_organic&key=",
     keywordVolume : "http://api.semrush.com/?type=phrase_this&key=",
     relatedQueries : "http://api.semrush.com/?type=phrase_related&key=",
+    domainOverview : "http://api.semrush.com/?type=domain_rank&key=",
     countUnits : "http://www.semrush.com/users/countapiunits.html?key="
   },
   methods : {
@@ -57,7 +58,7 @@ var checkAccount = function () {
   try {
     var result = UrlFetchApp.fetch(Global.queries.countUnits + Global.data.apiKey).getContentText()
     Browser.msgBox("You have : " + result + " API credits left")
-    if (result == "0") return false
+    if (result == 0) return false
     return true
   } catch (e) {
     return e
@@ -97,6 +98,60 @@ function onOpen() {
 /* ---------------------------------------------------------------------------*
                         MAIN functions START 
 * -------------------------------------------------------------------------*/
+
+
+/**
+* Returns Semrush domain history for a specified domain from January 2012 onwards
+*
+* @param {"example.com"} domain REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https)
+* @param {"us"} db OPTIONAL The country database you want to search from. Default is US
+* @param {true} includeHeader OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
+* @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. 
+* @return Returns organic keywords count, organic traffic, organic cost, adwords data
+* @customfunction
+*/
+
+function domainOverview(domain,db,includeHeader,date) {
+  if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol"
+  var displayDate = "&display_date=", db = db || Global.data.defaultDb
+  
+  if (!checkAccount()) return Global.data.errorMessage
+  
+  date ? displayDate+= date + "15" : displayDate = ""
+  
+  Global.methods.giveApiRest()
+ 
+  try {
+    var result = UrlFetchApp.fetch(Global.queries.domainOverview+Global.data.apiKey+"&export_columns=Or,Ot,Oc,Ad,At,Ac&domain="+domain+"&database="+db+displayDate).getContentText()
+    } catch (e) {
+      return result
+    }
+  
+  return parseApiResponse(result,includeHeader)
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 * Returns Semrush Organic keywords for a specified domain
