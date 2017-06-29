@@ -160,7 +160,7 @@ function domainOverview(domain,db,includeHeader,date) {
 * @param {true} filterBy OPTIONAL Use true to include the query in the filter or false to remove the query in the filter. Default is true
 * @param {true} matchType OPTIONAL Use true for partial match, use false for exact match. Default is true, partial match 
 * @param {"apartments"} query OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes".
-* @param {10} limit OPTIONAL Number from 1 to 100000
+* @param {10} limit OPTIONAL Number from 1 to 10000
 * @param {"us"} db OPTIONAL The country database you want to search from. Default is US
 * @param {true} includeHeader OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
 * @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. 
