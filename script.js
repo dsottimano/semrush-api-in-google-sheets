@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
 * Semrush API functions (Google sheets) from Analytics API: https://www.semrush.com/api-analytics/ 
 *
-* @desc    Checks URLs for 301, 302, 307 and meta refresh hops
+* @desc    Access Organic API calls from the Semrush.com API using Google sheets formulas
 * @author  Dave Sottimano @dsottimano Twitter
 * @license MIT (http://www.opensource.org/licenses/mit-license.php)
 * @version 1.0
