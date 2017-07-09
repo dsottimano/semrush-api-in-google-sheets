@@ -12,13 +12,13 @@
 
 
 /* ---------------------------------------------------------------------------*
-                             Global Object START 
+                             SemrushGlobal Object START 
 * -------------------------------------------------------------------------*/
-var Global = {
+var SemrushGlobal = {
   data : {
-    apiKey : "ENTER API KEY HERE",
-    errorMessage : "Sorry, either you don't have valid API key in the Global object in the script editor or you don't have credits, please check your credentials and balance at https://www.semrush.com/billing-admin/profile/subscription/api-units",
-    defaultDb : "us"
+    API_KEY : "ENTER API KEY HERE",
+    ERROR_MESSAGE : "Sorry, either you don't have valid API key in the SemrushGlobal object in the script editor or you don't have credits, please check your credentials and balance at https://www.semrush.com/billing-admin/profile/subscription/api-units",
+    DEFAULT_DB : "us"
   },
   queries : {
     domainOrganic : "http://api.semrush.com/?type=domain_organic&key=",
@@ -37,7 +37,7 @@ var Global = {
   }
 }
 /* ---------------------------------------------------------------------------*
-                             Global Object END 
+                             SemrushGlobal Object END 
 * -------------------------------------------------------------------------*/
 
 
@@ -52,11 +52,11 @@ var Global = {
 
 var checkAccount = function () {
   
-  if (typeof Global.data.apiKey !== "string" ||  !Global.data.apiKey) {
+  if (typeof SemrushGlobal.data.API_KEY !== "string" ||  !SemrushGlobal.data.API_KEY) {
     return false  
   } 
   try {
-    var result = UrlFetchApp.fetch(Global.queries.countUnits + Global.data.apiKey).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.countUnits + SemrushGlobal.data.API_KEY).getContentText()
     Browser.msgBox("You have : " + result + " API credits left")
     if (result == 0) return false
     return true
@@ -111,18 +111,18 @@ function onOpen() {
 * @customfunction
 */
 
-function domainOverview(domain,db,includeHeader,date) {
+function DOMAIN_OVERVIEW_SEMRUSH(domain,db,includeHeader,date) {
   if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol"
-  var displayDate = "&display_date=", db = db || Global.data.defaultDb
+  var displayDate = "&display_date=", db = db || SemrushGlobal.data.DEFAULT_DB
   
-  if (!checkAccount()) return Global.data.errorMessage
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
   
   date ? displayDate+= date + "15" : displayDate = ""
   
-  Global.methods.giveApiRest()
+  SemrushGlobal.methods.giveApiRest()
  
   try {
-    var result = UrlFetchApp.fetch(Global.queries.domainOverview+Global.data.apiKey+"&export_columns=Or,Ot,Oc,Ad,At,Ac&domain="+domain+"&database="+db+displayDate).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOverview+SemrushGlobal.data.API_KEY+"&export_columns=Or,Ot,Oc,Ad,At,Ac&domain="+domain+"&database="+db+displayDate).getContentText()
     } catch (e) {
       return result
     }
@@ -130,27 +130,6 @@ function domainOverview(domain,db,includeHeader,date) {
   return parseApiResponse(result,includeHeader)
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -168,21 +147,21 @@ function domainOverview(domain,db,includeHeader,date) {
 * @customfunction
 */
 
-function domainOrganicKeywords(domain,filterBy,matchType,query,limit,db,includeHeader,date) {
+function DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain,filterBy,matchType,query,limit,db,includeHeader,date) {
   if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol"
-  var displayDate = "&display_date=", filterOperator,filterBy,includeHeader,query = query || "", limit = limit || 1, db = db || Global.data.defaultDb, filterBy = filterBy && true, matchType = matchType && true
+  var displayDate = "&display_date=", filterOperator,filterBy,includeHeader,query = query || "", limit = limit || 1, db = db || SemrushGlobal.data.DEFAULT_DB, filterBy = filterBy && true, matchType = matchType && true
   
-  if (!checkAccount()) return Global.data.errorMessage
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
   
   date ? displayDate+= date + "15" : displayDate = ""
   
   filterBy ? filterBy = "%2B" : filterBy = "-" 
   matchType ? matchType = "Co" : matchType = "Eq"
   
-  Global.methods.giveApiRest()
+  SemrushGlobal.methods.giveApiRest()
   
   try {
-    var result = UrlFetchApp.fetch(Global.queries.domainOrganic+Global.data.apiKey+"&display_limit="+limit+"&export_columns=Ph,Po,Pp,Pd,Nq,Cp,Ur,Tr,Tc,Co,Nr&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+"%7C"+query+displayDate).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOrganic+SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Po,Pp,Pd,Nq,Cp,Ur,Tr,Tc,Co,Nr&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+"%7C"+query+displayDate).getContentText()
     } catch (e) {
       return result
     }
@@ -202,18 +181,18 @@ function domainOrganicKeywords(domain,filterBy,matchType,query,limit,db,includeH
 */
 
 
-function urlOrganicKeywords(url,includeHeader,limit,db) {
-  var db = db || Global.data.defaultDb, limit = limit || 10
+function URL_ORGANIC_KEYWORDS_SEMRUSH(url,includeHeader,limit,db) {
+  var db = db || SemrushGlobal.data.DEFAULT_DB, limit = limit || 10
   if (!url || url.indexOf("http") == -1) return "Error: Enter a valid URL, ensure you include the protocol"
   
   //semrush won't report on a homepage unless it has a trailing slash
   if (url.match(/\//g).length < 3) url += "/" 
-  if (!checkAccount()) return Global.data.errorMessage
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
   
-  Global.methods.giveApiRest();
+  SemrushGlobal.methods.giveApiRest();
   
   try {
-    var result = UrlFetchApp.fetch(Global.queries.urlOrganic + Global.data.apiKey+ "&display_limit="+limit+"&export_columns=Ph,Po,Nq,Cp,Co,Tr,Tc,Nr,Td&url="+url+"&database="+db).getContentText();
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.urlOrganic + SemrushGlobal.data.API_KEY+ "&display_limit="+limit+"&export_columns=Ph,Po,Nq,Cp,Co,Tr,Tc,Nr,Td&url="+url+"&database="+db).getContentText();
     return parseApiResponse(result,includeHeader)
   } catch(e) {
     return e
@@ -231,15 +210,15 @@ function urlOrganicKeywords(url,includeHeader,limit,db) {
 * @customfunction
 */
 
-function keywordDifficulty(query, includeHeader,db) {
+function KEYWORD_DIFFICULTY_SEMRUSH(query, includeHeader,db) {
   if (!query) return "Error: Missing query"
-  var db = db || Global.data.defaultDb
+  var db = db || SemrushGlobal.data.DEFAULT_DB
   
-  if (!checkAccount()) return Global.data.errorMessage
-  Global.methods.giveApiRest();
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
+  SemrushGlobal.methods.giveApiRest();
   
   try {
-    var result = UrlFetchApp.fetch(Global.queries.keywordDifficulty + Global.data.apiKey+ "&export_columns=Ph,Kd&phrase="+query+"&database=" + db).getContentText();
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.keywordDifficulty + SemrushGlobal.data.API_KEY+ "&export_columns=Ph,Kd&phrase="+query+"&database=" + db).getContentText();
     return parseApiResponse(result,includeHeader)
   } catch(e) {
     return e 
@@ -256,14 +235,14 @@ function keywordDifficulty(query, includeHeader,db) {
 * @customfunction
 */
 
-function serps(query,limit,db) {
+function SERPS_SEMRUSH(query,limit,db) {
   if (!query) return "Error: Missing query"
-  var db = db || Global.data.defaultDb, limit = limit || 10
-  if (!checkAccount()) return Global.data.errorMessage  
-  Global.methods.giveApiRest()
+  var db = db || SemrushGlobal.data.DEFAULT_DB, limit = limit || 10
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE  
+  SemrushGlobal.methods.giveApiRest()
   
   try {
-    var result = UrlFetchApp.fetch(Global.queries.phraseOrganic + Global.data.apiKey+"&display_limit="+limit+"&export_columns=Ur&phrase="+query+"&database="+db).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.phraseOrganic + SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ur&phrase="+query+"&database="+db).getContentText()
     return parseApiResponse(result)
   } catch (e) {
     return e
@@ -282,15 +261,15 @@ function serps(query,limit,db) {
 */
 
 
-function relatedQueries(query,includeHeader,limit,db) {
+function RELATED_QUERIES_SEMRUSH(query,includeHeader,limit,db) {
   
   if (!query) return "Error: Missing query"
-  var limit = limit || 1, db = db || Global.data.defaultDb
-  Global.methods.giveApiRest()
-  if (!checkAccount()) return Global.data.errorMessage 
+  var limit = limit || 1, db = db || SemrushGlobal.data.DEFAULT_DB
+  SemrushGlobal.methods.giveApiRest()
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE 
   
   try {
-    var result = UrlFetchApp.fetch(Global.queries.relatedQueries + Global.data.apiKey+"&display_limit="+limit+"&export_columns=Ph,Nq,Cp,Co,Nr,Td&phrase="+query+"&database="+db+"&display_sort=nq_desc").getContentText();
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.relatedQueries + SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Nq,Cp,Co,Nr,Td&phrase="+query+"&database="+db+"&display_sort=nq_desc").getContentText();
     return parseApiResponse(result,includeHeader)
   } catch(e) {
     return e
@@ -308,16 +287,16 @@ function relatedQueries(query,includeHeader,limit,db) {
 * @customfunction
 */
 
-function keywordVolume(query,includeHeader,db) {
+function KEYWORD_VOLUME_SEMRUSH(query,includeHeader,db) {
   if (!query) return "Error: Missing query"
-  var db = db || Global.data.defaultDb
+  var db = db || SemrushGlobal.data.DEFAULT_DB
   
-  Global.methods.giveApiRest()
+  SemrushGlobal.methods.giveApiRest()
   
-  if (!checkAccount()) return Global.data.errorMessage 
+  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE 
   
   try {
-    var result = UrlFetchApp.fetch(Global.queries.keywordVolume + Global.data.apiKey+"&export_columns=Ph,Nq,Cp,Co,Nr&phrase="+query+"&database="+db).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.keywordVolume + SemrushGlobal.data.API_KEY+"&export_columns=Ph,Nq,Cp,Co,Nr&phrase="+query+"&database="+db).getContentText()
     return parseApiResponse(result,includeHeader)
   } catch (e) {
     return e
