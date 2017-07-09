@@ -4,29 +4,29 @@
 ## Functions
 
 <dl>
-<dt><a href="#domainOrganicKeywords">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, includeHeader, date)</a> ⇒</dt>
+<dt><a href="#domainOrganicKeywords">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, excludeHeaders, date)</a> ⇒</dt>
 <dd><p>Returns Semrush Organic keywords for a specified domain</p>
 </dd>
-<dt><a href="#urlOrganicKeywords">URL_ORGANIC_KEYWORDS_SEMRUSH(url, includeHeader, limit, db)</a> ⇒</dt>
+<dt><a href="#urlOrganicKeywords">URL_ORGANIC_KEYWORDS_SEMRUSH(url, excludeHeaders, limit, db)</a> ⇒</dt>
 <dd><p>Returns Ranking Semrush Organic keywords per URL</p>
 </dd>
-<dt><a href="#keywordDifficulty">KEYWORD_DIFFICULTY_SEMRUSH(query, includeHeader, db)</a> ⇒</dt>
+<dt><a href="#keywordDifficulty">KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders, db)</a> ⇒</dt>
 <dd><p>Returns Semrush Keyword Difficulty for a keyword</p>
 </dd>
 <dt><a href="#serps">SERPS_SEMRUSH(query, limit, db)</a> ⇒</dt>
 <dd><p>Returns Semrush organic search results for a specific keyword</p>
 </dd>
-<dt><a href="#relatedQueries">RELATED_QUERIES_SEMRUSH(query, includeHeader, limit, db)</a> ⇒</dt>
+<dt><a href="#relatedQueries">RELATED_QUERIES_SEMRUSH(query, excludeHeaders, limit, db)</a> ⇒</dt>
 <dd><p>Returns Related search queries for a keyword from Semrush</p>
 </dd>
-<dt><a href="#keywordVolume">KEYWORD_VOLUME_SEMRUSH(query, includeHeader, db)</a> ⇒</dt>
+<dt><a href="#keywordVolume">KEYWORD_VOLUME_SEMRUSH(query, excludeHeaders, db)</a> ⇒</dt>
 <dd><p>Returns Keyword Volume from semrush</p>
 </dd>
 </dl>
 
 <a name="domainOrganicKeywords"></a>
 
-## DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, includeHeader, date) ⇒
+## DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, excludeHeaders, date) ⇒
 Returns Semrush Organic keywords for a specified domain
 
 **Kind**: global function
@@ -41,12 +41,12 @@ Returns Semrush Organic keywords for a specified domain
 | query | <code>&quot;apartments&quot;</code> | OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes". |
 | limit | <code>10</code> | OPTIONAL Number from 1 to 10000 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
-| includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | date | <code>201601</code> | OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. |
 
 <a name="urlOrganicKeywords"></a>
 
-## URL_ORGANIC_KEYWORDS_SEMRUSH(url, includeHeader, limit, db) ⇒
+## URL_ORGANIC_KEYWORDS_SEMRUSH(url, excludeHeaders, limit, db) ⇒
 Returns Ranking Semrush Organic keywords per URL
 
 **Kind**: global function
@@ -56,13 +56,13 @@ Returns Ranking Semrush Organic keywords per URL
 | Param | Example | Description |
 | --- | --- | --- |
 | url | <code>&quot;http://example.com&quot;</code> | REQUIRED The exact URL you want data for, MUST include protocol (http/https) |
-| includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | limit | <code>&quot;10&quot;</code> | OPTIONAL Number from 1 to 10,000, for number of results |
 | db | <code>&quot;US&quot;</code> | OPTIONAL The database, example "US" for American database. Default is US |
 
 <a name="keywordDifficulty"></a>
 
-## KEYWORD_DIFFICULTY_SEMRUSH(query, includeHeader, db) ⇒
+## KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders, db) ⇒
 Returns Semrush Keyword Difficulty for a keyword
 
 **Kind**: global function
@@ -72,7 +72,7 @@ Returns Semrush Keyword Difficulty for a keyword
 | Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
-| includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
 
 <a name="serps"></a>
@@ -92,7 +92,7 @@ Returns Semrush organic search results for a specific keyword
 
 <a name="relatedQueries"></a>
 
-## RELATED_QUERIES_SEMRUSH(query, includeHeader, limit, db) ⇒
+## RELATED_QUERIES_SEMRUSH(query, excludeHeaders, limit, db) ⇒
 Returns Related search queries for a keyword from Semrush
 
 **Kind**: global function
@@ -102,13 +102,13 @@ Returns Related search queries for a keyword from Semrush
 | Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
-| includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | limit | <code>10</code> | OPTIONAL The number of results. Default is 1 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
 
 <a name="keywordVolume"></a>
 
-## KEYWORD_VOLUME_SEMRUSH(query, includeHeader, db) ⇒
+## KEYWORD_VOLUME_SEMRUSH(query, excludeHeaders, db) ⇒
 Returns Keyword Volume from semrush
 
 **Kind**: global function
@@ -118,5 +118,5 @@ Returns Keyword Volume from semrush
 | Param | Example | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
-| includeHeader | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from, default is "us" |
