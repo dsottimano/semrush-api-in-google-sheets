@@ -4,29 +4,29 @@
 ## Functions
 
 <dl>
-<dt><a href="#domainOrganicKeywords">domainOrganicKeywords(domain, filterBy, matchType, query, limit, db, includeHeader, date)</a> ⇒</dt>
+<dt><a href="#domainOrganicKeywords">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, includeHeader, date)</a> ⇒</dt>
 <dd><p>Returns Semrush Organic keywords for a specified domain</p>
 </dd>
-<dt><a href="#urlOrganicKeywords">urlOrganicKeywords(url, includeHeader, limit, db)</a> ⇒</dt>
+<dt><a href="#urlOrganicKeywords">URL_ORGANIC_KEYWORDS_SEMRUSH(url, includeHeader, limit, db)</a> ⇒</dt>
 <dd><p>Returns Ranking Semrush Organic keywords per URL</p>
 </dd>
-<dt><a href="#keywordDifficulty">keywordDifficulty(query, includeHeader, db)</a> ⇒</dt>
+<dt><a href="#keywordDifficulty">KEYWORD_DIFFICULTY_SEMRUSH(query, includeHeader, db)</a> ⇒</dt>
 <dd><p>Returns Semrush Keyword Difficulty for a keyword</p>
 </dd>
-<dt><a href="#serps">serps(query, limit, db)</a> ⇒</dt>
+<dt><a href="#serps">SERPS_SEMRUSH(query, limit, db)</a> ⇒</dt>
 <dd><p>Returns Semrush organic search results for a specific keyword</p>
 </dd>
-<dt><a href="#relatedQueries">relatedQueries(query, includeHeader, limit, db)</a> ⇒</dt>
+<dt><a href="#relatedQueries">RELATED_QUERIES_SEMRUSH(query, includeHeader, limit, db)</a> ⇒</dt>
 <dd><p>Returns Related search queries for a keyword from Semrush</p>
 </dd>
-<dt><a href="#keywordVolume">keywordVolume(query, includeHeader, db)</a> ⇒</dt>
+<dt><a href="#keywordVolume">KEYWORD_VOLUME_SEMRUSH(query, includeHeader, db)</a> ⇒</dt>
 <dd><p>Returns Keyword Volume from semrush</p>
 </dd>
 </dl>
 
 <a name="domainOrganicKeywords"></a>
 
-## domainOrganicKeywords(domain, filterBy, matchType, query, limit, db, includeHeader, date) ⇒
+## DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, includeHeader, date) ⇒
 Returns Semrush Organic keywords for a specified domain
 
 **Kind**: global function
@@ -46,7 +46,7 @@ Returns Semrush Organic keywords for a specified domain
 
 <a name="urlOrganicKeywords"></a>
 
-## urlOrganicKeywords(url, includeHeader, limit, db) ⇒
+## URL_ORGANIC_KEYWORDS_SEMRUSH(url, includeHeader, limit, db) ⇒
 Returns Ranking Semrush Organic keywords per URL
 
 **Kind**: global function
@@ -62,7 +62,7 @@ Returns Ranking Semrush Organic keywords per URL
 
 <a name="keywordDifficulty"></a>
 
-## keywordDifficulty(query, includeHeader, db) ⇒
+## KEYWORD_DIFFICULTY_SEMRUSH(query, includeHeader, db) ⇒
 Returns Semrush Keyword Difficulty for a keyword
 
 **Kind**: global function
@@ -77,7 +77,7 @@ Returns Semrush Keyword Difficulty for a keyword
 
 <a name="serps"></a>
 
-## serps(query, limit, db) ⇒
+## SERPS_SEMRUSH(query, limit, db) ⇒
 Returns Semrush organic search results for a specific keyword
 
 **Kind**: global function
@@ -92,7 +92,7 @@ Returns Semrush organic search results for a specific keyword
 
 <a name="relatedQueries"></a>
 
-## relatedQueries(query, includeHeader, limit, db) ⇒
+## RELATED_QUERIES_SEMRUSH(query, includeHeader, limit, db) ⇒
 Returns Related search queries for a keyword from Semrush
 
 **Kind**: global function
@@ -108,7 +108,7 @@ Returns Related search queries for a keyword from Semrush
 
 <a name="keywordVolume"></a>
 
-## keywordVolume(query, includeHeader, db) ⇒
+## KEYWORD_VOLUME_SEMRUSH(query, includeHeader, db) ⇒
 Returns Keyword Volume from semrush
 
 **Kind**: global function
