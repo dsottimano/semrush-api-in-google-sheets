@@ -42,7 +42,7 @@ function SemrushGlobal () {
   var SemrushGlobalObject = {
     
     data : {
-      API_KEY : "da7bcf7a3c1852003938fe562b62a072",
+      API_KEY : "ENTER API KEY HERE",
       ERROR_MESSAGE : "No valid API key in the SemrushGlobal object in the script editor OR out of API credits",
       DEFAULT_DB : "us"
     },
