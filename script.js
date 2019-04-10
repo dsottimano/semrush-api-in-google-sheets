@@ -18,6 +18,64 @@ function onOpen() {
   .addToUi();
 }
 
+function onEdit(){
+  SpreadsheetApp.flush()
+}
+
+
+function ROOT_() {
+ 
+   var rootObject = {
+    
+    cache : CacheService.getDocumentCache(),
+    cacheDefaultTime: 1500,
+    
+    // Step 1 -- Construct a unique name for function call storage using the function name and arguments passed to the function
+    // example: function getPaidApi(1,2,3) becomes "getPaidApi123"
+    encode: function encode(functionName, argumentsPassed) {
+      var data = [functionName].concat(argumentsPassed);
+      var json = JSON.stringify(data);
+      return Utilities.base64Encode(json);
+    },
+    
+    //Step 2 -- when a user calls a function that uses a paid api, we want to cache the results for 25 minutes
+    addToCache : function addToCache (encoded, returnedValues) { 
+      
+      var values = {
+        returnValues : returnedValues
+      }
+      this.cache.put(encoded, JSON.stringify(values), this.cacheDefaultTime)
+    },
+    
+    //Step 3 -- if the user repeats the exact same function call with the same arguments, we give them the cached result
+    //this way, we don't consume API credits as easily. 
+    checkCache : function checkCache(encoded) {
+      
+      var cached = this.cache.get(encoded);
+      
+      try {
+        cached = JSON.parse(cached)
+        return cached.returnValues
+      } catch (e) {
+        return false;
+      }
+    },
+    onlyUnique : function(value, index, self) { 
+      return self.indexOf(value) === index;
+    },
+    checkUrl : function (url) {
+      if (!url || typeof url !== "string") return false
+      if (typeof url === "string") {
+        if (url.indexOf("http") === -1) return false
+          }
+      
+      return true
+    }
+  }
+   return rootObject
+  }
+  
+
 function checkSemrushAccount () {
   
   if (typeof SemrushGlobal().data.API_KEY !== "string" ||  !SemrushGlobal().data.API_KEY || SemrushGlobal().data.API_KEY=="ENTER API KEY HERE") {
@@ -400,44 +458,6 @@ function KEYWORD_VOLUME_SEMRUSH(query,excludeHeaders,db,nocache) {
   } catch (e) {
     return e;
   }
-}
-
-/**
-* Returns Semrush visibilty scores for a specified domain from the project api
-*
-* @param {"6612548"} projectId REQUIRED The tracking project ID
-* @param {"example.com"} domain REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https)
-* @param {20160101} dateStart OPTIONAL YYYYMMDD format, reporting is daily
-* @param {20160130} dateEnd OPTIONAL YYYYMMDD format, reporting is daily
-* @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
-* @return Returns Dt,Vr,Vi,Av,Tr,Tc
-* @customfunction
-*/
-
-
-function PROJECT_VISIBILITY_SEMRUSH (projectId,domain,dateStart,dateEnd,excludeHeaders) {
-  
-  var cachedDetails = []  
-  
-  try {
-    var request = 'https://api.semrush.com/reports/v1/projects/'+projectId+'/tracking/?key=8fd32ae33fdcec71d6acff1a873b1671&action=report&type=tracking_visibility_organic&url=*.'+domain+'/*&date_begin='+dateStart+'&date_end='+dateEnd
-    var response = UrlFetchApp.fetch(request).getContentText()
-    var parsedData = JSON.parse(response)
-    
-    
-    if(!excludeHeaders) cachedDetails.push(["Domain", "Date", "Absolute Visibility (Vi)", "Relative Visibility (Vr)", "Average Position (Av)", "Traffic Estimate (Tr)", "TC"])
-    
-    for (key in parsedData.data) {
-      
-      cachedDetails.push([domain, parsedData.data[key].Dt, parsedData.data[key].Vi,parsedData.data[key].Vr, parsedData.data[key].Av, parsedData.data[key].Tr, parsedData.data[key].Tc])
-    }
-    
-    return cachedDetails
-  }
-  catch(e) {
-    return e
-  }
-  
 }
 
 
