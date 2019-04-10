@@ -1,3 +1,5 @@
+
+
 /* ---------------------------------------------------------------------------
 * Semrush API functions (Google sheets) from Analytics API: https://www.semrush.com/api-analytics/ 
 *
@@ -9,94 +11,101 @@
 
 //----------------------------------------------------------------------------
 
-
-
-/* ---------------------------------------------------------------------------*
-                             SemrushGlobal Object START 
-* -------------------------------------------------------------------------*/
-var SemrushGlobal = {
-  data : {
-    API_KEY : "ENTER API KEY HERE",
-    ERROR_MESSAGE : "Sorry, either you don't have valid API key in the SemrushGlobal object in the script editor or you don't have credits, please check your credentials and balance at https://www.semrush.com/billing-admin/profile/subscription/api-units",
-    DEFAULT_DB : "us"
-  },
-  queries : {
-    domainOrganic : "http://api.semrush.com/?type=domain_organic&key=",
-    urlOrganic : "http://api.semrush.com/?type=url_organic&key=",
-    keywordDifficulty: "http://api.semrush.com/?type=phrase_kdi&key=",
-    phraseOrganic : "http://api.semrush.com/?type=phrase_organic&key=",
-    keywordVolume : "http://api.semrush.com/?type=phrase_this&key=",
-    relatedQueries : "http://api.semrush.com/?type=phrase_related&key=",
-    domainOverview : "http://api.semrush.com/?type=domain_rank&key=",
-    countUnits : "http://www.semrush.com/users/countapiunits.html?key="
-  },
-  methods : {
-    giveApiRest : function () {
-      Utilities.sleep(200)
-    }
-  }
+function onOpen() {
+  SpreadsheetApp.getUi() 
+  .createMenu('Helper Functions')
+  .addItem('Check Semrush API balance', 'checkSemrushAccount')
+  .addToUi();
 }
-/* ---------------------------------------------------------------------------*
-                             SemrushGlobal Object END 
-* -------------------------------------------------------------------------*/
 
-
-
-
-
-
-/* ---------------------------------------------------------------------------*
-                         Helper functions START 
-* -------------------------------------------------------------------------*/
-
-
-var checkAccount = function () {
+function checkSemrushAccount () {
   
-  if (typeof SemrushGlobal.data.API_KEY !== "string" ||  !SemrushGlobal.data.API_KEY || SemrushGlobal.data.API_KEY=="ENTER API KEY HERE") {
+  if (typeof SemrushGlobal().data.API_KEY !== "string" ||  !SemrushGlobal().data.API_KEY || SemrushGlobal().data.API_KEY=="ENTER API KEY HERE") {
     return false  
   } 
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.countUnits + SemrushGlobal.data.API_KEY).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.countUnits + SemrushGlobal().data.API_KEY,{"muteHttpExceptions":true}).getContentText()
     Browser.msgBox("You have : " + result + " API credits left")
     if (result == 0) return false
     return true
   } catch (e) {
-    return e
+    return Browser.msgBox("Error: " + e)
   }
 }
 
-//true by default, 
-var parseApiResponse  = function(result,valueBoolean) { 
-  var data = [], valueBoolean
-  valueBoolean ? valueBoolean = 1 : valueBoolean = 0
-  var lines = result.split("\n");
-  
-  try {
-    for(i=valueBoolean;i<lines.length;i++) {
-      data.push(lines[i].split(";"));
-    }
-    return data
-  } catch(e) {
-    return e
-  }
-}  
 
-function onOpen() {
-  SpreadsheetApp.getUi() 
-  .createMenu('Semrush Functions')
-  .addItem('Check API balance', 'checkAccount')
-  .addToUi();
-}
 /* ---------------------------------------------------------------------------*
-                         Helper functions END 
+SemrushGlobal Object START 
+* -------------------------------------------------------------------------*/
+
+function SemrushGlobal () {
+  var SemrushGlobalObject = {
+    
+    data : {
+      API_KEY : "da7bcf7a3c1852003938fe562b62a072",
+      ERROR_MESSAGE : "No valid API key in the SemrushGlobal object in the script editor OR out of API credits",
+      DEFAULT_DB : "us"
+    },
+    queries : {
+      domainOrganic : "http://api.semrush.com/?type=domain_organic&key=",
+      urlOrganic : "http://api.semrush.com/?type=url_organic&key=",
+      keywordDifficulty: "http://api.semrush.com/?type=phrase_kdi&key=",
+      phraseOrganic : "http://api.semrush.com/?type=phrase_organic&key=",
+      keywordVolume : "http://api.semrush.com/?type=phrase_this&key=",
+      relatedQueries : "http://api.semrush.com/?type=phrase_related&key=",
+      domainOverview : "http://api.semrush.com/?type=domain_rank&key=",
+      countUnits : "http://www.semrush.com/users/countapiunits.html?key="
+    },
+    methods : {
+      giveApiRest : function () {
+        Utilities.sleep(200)
+      },
+      checkAccount : function checkAccount () {       
+        if (typeof SemrushGlobal().data.API_KEY !== "string" ||  !SemrushGlobal().data.API_KEY || SemrushGlobal().data.API_KEY=="ENTER API KEY HERE") {
+          return false  
+        } 
+        try {
+          var result = UrlFetchApp.fetch(SemrushGlobal().queries.countUnits + SemrushGlobal().data.API_KEY,{"muteHttpExceptions":true})
+          if (result.getContentText() == 0) return false
+          var parsedResult = JSON.parse(result.getContentText())
+          if (parsedResult.data.hasOwnProperty("error")) return false
+          return true
+        } catch (e) {
+          return e
+        }
+      }, 
+      parseApiResponse  : function parseApiResponse(result,valueBoolean) { 
+        var data = [], valueBoolean, filtered
+        valueBoolean ? valueBoolean = 1 : valueBoolean = 0
+        var lines = result.split("\n")
+        lines = lines.filter(Boolean);
+        
+        try {
+          for(i=valueBoolean;i<lines.length;i++) {
+            data.push(lines[i].split(";"));
+          }
+         
+          return data
+        } catch(e) {
+          return e
+        }
+      }  
+      
+    }
+  }
+  return SemrushGlobalObject
+}
+
+
+/* ---------------------------------------------------------------------------*
+SemrushGlobal Object END 
 * -------------------------------------------------------------------------*/
 
 
 
 
-
 /* ---------------------------------------------------------------------------*
-                        MAIN functions START 
+MAIN functions START 
 * -------------------------------------------------------------------------*/
 
 
@@ -106,28 +115,34 @@ function onOpen() {
 * @param {"example.com"} domain REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https)
 * @param {"us"} db OPTIONAL The country database you want to search from. Default is US
 * @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
-* @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. 
+* @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month.
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Returns organic keywords count, organic traffic, organic cost, adwords data
 * @customfunction
 */
 
 function DOMAIN_OVERVIEW_SEMRUSH(domain,db,excludeHeaders,date) {
-  if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol"
-  var displayDate = "&display_date=", db = db || SemrushGlobal.data.DEFAULT_DB
-  
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
-  
-  date ? displayDate+= date + "15" : displayDate = ""
-  
-  SemrushGlobal.methods.giveApiRest()
- 
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOverview+SemrushGlobal.data.API_KEY+"&export_columns=Or,Ot,Oc,Ad,At,Ac&domain="+domain+"&database="+db+displayDate).getContentText()
-    } catch (e) {
-      return result
-    }
+    if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol";
+    var displayDate = "&display_date=", db = db || SemrushGlobal().data.DEFAULT_DB;
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE;
+    
+    date ? displayDate+= date + "15" : displayDate = "";
+    SemrushGlobal().methods.giveApiRest();
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName); 
+      if (cachedResult) return cachedResult;
+        } 
+    
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.domainOverview+SemrushGlobal().data.API_KEY+"&export_columns=Or,Ot,Oc,Ad,At,Ac&domain="+domain+"&database="+db+displayDate).getContentText()
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]"
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
+  } catch (e) {
+    return e;
+  }
   
-  return parseApiResponse(result,excludeHeaders)
   
 }
 
@@ -141,33 +156,81 @@ function DOMAIN_OVERVIEW_SEMRUSH(domain,db,excludeHeaders,date) {
 * @param {10} limit OPTIONAL Number from 1 to 10000
 * @param {"us"} db OPTIONAL The country database you want to search from. Default is US
 * @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
-* @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. 
+* @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month.
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Access organic keywords for a domain from semrush.com database
 * @customfunction
 */
 
-function DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain,filterBy,matchType,query,limit,db,excludeHeaders,date) {
-  if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol"
-  var displayDate = "&display_date=", filterOperator,filterBy,excludeHeaders,query = query || "", limit = limit || 1, db = db || SemrushGlobal.data.DEFAULT_DB, filterBy = filterBy && true, matchType = matchType && true
-  
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
-  
-  date ? displayDate+= date + "15" : displayDate = ""
-  
-  filterBy ? filterBy = "%2B" : filterBy = "-" 
-  matchType ? matchType = "Co" : matchType = "Eq"
-  
-  SemrushGlobal.methods.giveApiRest()
-  
+function DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain,filterBy,matchType,query,limit,db,excludeHeaders,date,nocache) {
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOrganic+SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Po,Pp,Pd,Nq,Cp,Ur,Tr,Tc,Co,Nr&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+"%7C"+query+displayDate).getContentText()
-    } catch (e) {
-      return result
-    }
+    Logger.log(nocache)
+    if (!domain || domain.indexOf("http") > -1) throw "Error: Enter a valid domain, do not include protocol"
+    var displayDate = "&display_date=", filterOperator,filterBy,excludeHeaders,query = query || "", limit = limit || 1, db = db || SemrushGlobal().data.DEFAULT_DB, filterBy = filterBy && true, matchType = matchType && true
+    if (!SemrushGlobal().methods.checkAccount()) throw SemrushGlobal().data.ERROR_MESSAGE
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName) ;
+      if (cachedResult) return cachedResult;
+        }  
+    
+    date ? displayDate+= date + "15" : displayDate = "";
+    filterBy ? filterBy = "%2B" : filterBy = "-";
+    matchType ? matchType = "Co" : matchType = "Eq"
+    if(query) query = "%7C" + query
+    SemrushGlobal().methods.giveApiRest();
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.domainOrganic+SemrushGlobal().data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Po,Pp,Pd,Nq,Cp,Ur,Tr,Tc,Co,Nr&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+query+displayDate).getContentText()
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]"
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
+  } catch (e) {
+    return e;
+  }
   
-  return parseApiResponse(result,excludeHeaders)
   
 }
+
+
+/**
+* Returns Historical rankings for domain/keyword combination
+*
+* @param {"example.com"} domain REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https)
+* @param {"apartments"} query OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes".
+* @param {10} limit OPTIONAL Number from 1 to 10000
+* @param {"us"} db OPTIONAL The country database you want to search from. Default is US
+* @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
+* @param {201601} date OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month.
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+* @return Access organic keywords for a domain from semrush.com database
+* @customfunction
+*/
+
+function HISTORICAL_RANKING_KEYWORD_SEMRUSH(domain,query,limit,db,excludeHeaders,date,nocache) {
+  
+  try {
+    if (!domain || domain.indexOf("http") > -1) return "Error: Enter a valid domain, do not include protocol"
+    var displayDate = "&display_date=",filterBy = "%2B", matchType = "Eq", excludeHeaders,query = query || "", limit = limit || 1, db = db || SemrushGlobal().data.DEFAULT_DB
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments)
+      var cachedResult = ROOT_().checkCache(cacheStringName) 
+      if (cachedResult) return cachedResult
+        } 
+    date ? displayDate+= date + "15" : displayDate = "";
+    SemrushGlobal().methods.giveApiRest();
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.domainOrganic+SemrushGlobal().data.API_KEY+"&display_limit="+limit+"&export_columns=Po&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+"%7C"+query+displayDate).getContentText()
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]"
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
+  } catch (e) {
+    return e
+  }
+  
+  
+}
+
+
+
 
 /**
 * Returns Ranking Semrush Organic keywords per URL
@@ -175,26 +238,34 @@ function DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain,filterBy,matchType,query,limit,d
 * @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
 * @param {"10"} limit OPTIONAL Number from 1 to 10,000, for number of results
 * @param {"US"} db OPTIONAL The database, example "US" for American database. Default is US
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Access organic keywords for a url from semrush.com database
 * @customfunction
 */
 
 
-function URL_ORGANIC_KEYWORDS_SEMRUSH(url,excludeHeaders,limit,db) {
-  var db = db || SemrushGlobal.data.DEFAULT_DB, limit = limit || 10
-  if (!url || url.indexOf("http") == -1) return "Error: Enter a valid URL, ensure you include the protocol"
-  
-  //semrush won't report on a homepage unless it has a trailing slash
-  if (url.match(/\//g).length < 3) url += "/" 
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
-  
-  SemrushGlobal.methods.giveApiRest();
-  
+function URL_ORGANIC_KEYWORDS_SEMRUSH(url,excludeHeaders,limit,db,nocache) {
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.urlOrganic + SemrushGlobal.data.API_KEY+ "&display_limit="+limit+"&export_columns=Ph,Po,Nq,Cp,Co,Tr,Tc,Nr,Td&url="+url+"&database="+db).getContentText();
-    return parseApiResponse(result,excludeHeaders)
+    var db = db || SemrushGlobal().data.DEFAULT_DB, limit = limit || 10;
+    if (!url || url.indexOf("http") == -1) return "Error: Enter a valid URL, ensure you include the protocol";
+    
+    //semrush won't report on a homepage unless it has a trailing slash;
+    if (url.match(/\//g).length < 3) url += "/";
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE;
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName);
+      if (cachedResult) return cachedResult;
+        }
+    SemrushGlobal().methods.giveApiRest();
+    
+    
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.urlOrganic + SemrushGlobal().data.API_KEY+ "&display_limit="+limit+"&export_columns=Ph,Po,Nq,Cp,Co,Tr,Tc,Nr,Td&url="+url+"&database="+db).getContentText();
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]"
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
-    return e
+    return e;
   }
 }
 
@@ -205,22 +276,29 @@ function URL_ORGANIC_KEYWORDS_SEMRUSH(url,excludeHeaders,limit,db) {
 * @param {"apartments"} query REQUIRED The keyword you want information for. Example: "brown shoes".
 * @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
 * @param {"us"} db OPTIONAL The country database you want to search from. Default is US
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Access keyword difficulty for keyword from semrush
 * @customfunction
 */
 
-function KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders,db) {
-  if (!query) return "Error: Missing query"
-  var db = db || SemrushGlobal.data.DEFAULT_DB
-  
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE
-  SemrushGlobal.methods.giveApiRest();
-  
+function KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders,db,nocache) {
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.keywordDifficulty + SemrushGlobal.data.API_KEY+ "&export_columns=Ph,Kd&phrase="+query+"&database=" + db).getContentText();
-    return parseApiResponse(result,excludeHeaders)
+    if (!query) return "Error: Missing query";
+    var db = db || SemrushGlobal().data.DEFAULT_DB;
+    
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE;
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName); 
+      if (cachedResult) return cachedResult;
+        }
+    SemrushGlobal().methods.giveApiRest();
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.keywordDifficulty + SemrushGlobal().data.API_KEY+ "&export_columns=Ph,Kd&phrase="+query+"&database=" + db).getContentText();
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]"
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
-    return e 
+    return e
   }
 }
 
@@ -230,19 +308,27 @@ function KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders,db) {
 * @param {"apartments"} query REQUIRED The keyword you want information for. Example: "brown shoes".
 * @param {10} limit OPTIONAL Number from 10 to 20, for number of results. Default is 10
 * @param {"us"} db OPTIONAL The country database you want to search from. Default is US
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Access organic search results for a keyword from semrush.com database
 * @customfunction
 */
 
-function SERPS_SEMRUSH(query,limit,db) {
-  if (!query) return "Error: Missing query"
-  var db = db || SemrushGlobal.data.DEFAULT_DB, limit = limit || 10
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE  
-  SemrushGlobal.methods.giveApiRest()
-  
+function SERPS_SEMRUSH(query,limit,db,nocache) {
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.phraseOrganic + SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ur&phrase="+query+"&database="+db).getContentText()
-    return parseApiResponse(result)
+    if (!query) return "Error: Missing query";
+    var db = db || SemrushGlobal().data.DEFAULT_DB, limit = limit || 10;
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE;  
+    SemrushGlobal().methods.giveApiRest();
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName);
+      if (cachedResult) return cachedResult;
+        }
+    
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.phraseOrganic + SemrushGlobal().data.API_KEY+"&display_limit="+limit+"&export_columns=Ur&phrase="+query+"&database="+db).getContentText();
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]";
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result);
   } catch (e) {
     return e
   }
@@ -255,23 +341,30 @@ function SERPS_SEMRUSH(query,limit,db) {
 * @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
 * @param {10} limit OPTIONAL The number of results. Default is 1
 * @param {"us"} db OPTIONAL The country database you want to search from. Default is US
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Returns related queries for a specific keyword from semrush.com
 * @customfunction
 */
 
 
-function RELATED_QUERIES_SEMRUSH(query,excludeHeaders,limit,db) {
-  
-  if (!query) return "Error: Missing query"
-  var limit = limit || 1, db = db || SemrushGlobal.data.DEFAULT_DB
-  SemrushGlobal.methods.giveApiRest()
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE 
-  
+function RELATED_QUERIES_SEMRUSH(query,excludeHeaders,limit,db,nocache) {
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.relatedQueries + SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Nq,Cp,Co,Nr,Td&phrase="+query+"&database="+db+"&display_sort=nq_desc").getContentText();
-    return parseApiResponse(result,excludeHeaders)
+    if (!query) return "Error: Missing query";
+    var limit = limit || 1, db = db || SemrushGlobal().data.DEFAULT_DB;
+    SemrushGlobal().methods.giveApiRest();
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE; 
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName); 
+      if (cachedResult) return cachedResult;
+        }
+    
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.relatedQueries + SemrushGlobal().data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Nq,Cp,Co,Nr,Td&phrase="+query+"&database="+db+"&display_sort=nq_desc").getContentText();
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]";
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
-    return e
+    return e;
   }
   
 }
@@ -282,26 +375,72 @@ function RELATED_QUERIES_SEMRUSH(query,excludeHeaders,limit,db) {
 * @param {"apartments"} query REQUIRED The keyword you want information for. Example: "brown shoes".
 * @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
 * @param {"us"} db OPTIONAL The country database you want to search from, default is "us"
+* @param {"FALSE"} nocache OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 * @return Returns search volume, cpc, etc..
 * @customfunction
 */
 
-function KEYWORD_VOLUME_SEMRUSH(query,excludeHeaders,db) {
-  if (!query) return "Error: Missing query"
-  var db = db || SemrushGlobal.data.DEFAULT_DB
-  
-  SemrushGlobal.methods.giveApiRest()
-  
-  if (!checkAccount()) return SemrushGlobal.data.ERROR_MESSAGE 
-  
+function KEYWORD_VOLUME_SEMRUSH(query,excludeHeaders,db,nocache) {
   try {
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.keywordVolume + SemrushGlobal.data.API_KEY+"&export_columns=Ph,Nq,Cp,Co,Nr&phrase="+query+"&database="+db).getContentText()
-    return parseApiResponse(result,excludeHeaders)
+    if (!query) return "Error: Missing query";
+    var db = db || SemrushGlobal().data.DEFAULT_DB;
+    SemrushGlobal().methods.giveApiRest();
+    
+    if (!SemrushGlobal().methods.checkAccount()) return SemrushGlobal().data.ERROR_MESSAGE;
+    if (!nocache) {
+      var cacheStringName = ROOT_().encode(arguments.callee.name,arguments);
+      var cachedResult = ROOT_().checkCache(cacheStringName); 
+      if (cachedResult) return cachedResult;
+        }
+    
+    var result = UrlFetchApp.fetch(SemrushGlobal().queries.keywordVolume + SemrushGlobal().data.API_KEY+"&export_columns=Ph,Nq,Cp,Co,Nr&phrase="+query+"&database="+db).getContentText();
+    if (result.indexOf("NOTHING FOUND") > -1) throw "[Not Found in SemRush]";
+    if (!nocache) ROOT_().addToCache(cacheStringName, SemrushGlobal().methods.parseApiResponse(result,excludeHeaders));
+    return SemrushGlobal().methods.parseApiResponse(result,excludeHeaders);
   } catch (e) {
-    return e
+    return e;
   }
 }
 
+/**
+* Returns Semrush visibilty scores for a specified domain from the project api
+*
+* @param {"6612548"} projectId REQUIRED The tracking project ID
+* @param {"example.com"} domain REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https)
+* @param {20160101} dateStart OPTIONAL YYYYMMDD format, reporting is daily
+* @param {20160130} dateEnd OPTIONAL YYYYMMDD format, reporting is daily
+* @param {true} excludeHeaders OPTIONAL true to EXCLUDE column headers or false to include. Default is false.
+* @return Returns Dt,Vr,Vi,Av,Tr,Tc
+* @customfunction
+*/
+
+
+function PROJECT_VISIBILITY_SEMRUSH (projectId,domain,dateStart,dateEnd,excludeHeaders) {
+  
+  var cachedDetails = []  
+  
+  try {
+    var request = 'https://api.semrush.com/reports/v1/projects/'+projectId+'/tracking/?key=8fd32ae33fdcec71d6acff1a873b1671&action=report&type=tracking_visibility_organic&url=*.'+domain+'/*&date_begin='+dateStart+'&date_end='+dateEnd
+    var response = UrlFetchApp.fetch(request).getContentText()
+    var parsedData = JSON.parse(response)
+    
+    
+    if(!excludeHeaders) cachedDetails.push(["Domain", "Date", "Absolute Visibility (Vi)", "Relative Visibility (Vr)", "Average Position (Av)", "Traffic Estimate (Tr)", "TC"])
+    
+    for (key in parsedData.data) {
+      
+      cachedDetails.push([domain, parsedData.data[key].Dt, parsedData.data[key].Vi,parsedData.data[key].Vr, parsedData.data[key].Av, parsedData.data[key].Tr, parsedData.data[key].Tc])
+    }
+    
+    return cachedDetails
+  }
+  catch(e) {
+    return e
+  }
+  
+}
+
+
 /* ---------------------------------------------------------------------------*
-                        MAIN functions END 
+MAIN functions END 
 * -------------------------------------------------------------------------*/
