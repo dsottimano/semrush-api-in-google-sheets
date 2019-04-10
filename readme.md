@@ -4,22 +4,22 @@
 ## Functions
 
 <dl>
-<dt><a href="#domainOrganicKeywords">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, excludeHeaders, date)</a> ⇒</dt>
+<dt><a href="#domainOrganicKeywords">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, excludeHeaders, date, nocache)</a> ⇒</dt>
 <dd><p>Returns Semrush Organic keywords for a specified domain</p>
 </dd>
-<dt><a href="#urlOrganicKeywords">URL_ORGANIC_KEYWORDS_SEMRUSH(url, excludeHeaders, limit, db)</a> ⇒</dt>
+<dt><a href="#urlOrganicKeywords">URL_ORGANIC_KEYWORDS_SEMRUSH(url, excludeHeaders, limit, db,nocache)</a> ⇒</dt>
 <dd><p>Returns Ranking Semrush Organic keywords per URL</p>
 </dd>
-<dt><a href="#keywordDifficulty">KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders, db)</a> ⇒</dt>
+<dt><a href="#keywordDifficulty">KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders, db,nocache)</a> ⇒</dt>
 <dd><p>Returns Semrush Keyword Difficulty for a keyword</p>
 </dd>
-<dt><a href="#serps">SERPS_SEMRUSH(query, limit, db)</a> ⇒</dt>
+<dt><a href="#serps">SERPS_SEMRUSH(query, limit, db,nocache)</a> ⇒</dt>
 <dd><p>Returns Semrush organic search results for a specific keyword</p>
 </dd>
-<dt><a href="#relatedQueries">RELATED_QUERIES_SEMRUSH(query, excludeHeaders, limit, db)</a> ⇒</dt>
+<dt><a href="#relatedQueries">RELATED_QUERIES_SEMRUSH(query, excludeHeaders, limit, db,nocache)</a> ⇒</dt>
 <dd><p>Returns Related search queries for a keyword from Semrush</p>
 </dd>
-<dt><a href="#keywordVolume">KEYWORD_VOLUME_SEMRUSH(query, excludeHeaders, db)</a> ⇒</dt>
+<dt><a href="#keywordVolume">KEYWORD_VOLUME_SEMRUSH(query, excludeHeaders, db,nocache)</a> ⇒</dt>
 <dd><p>Returns Keyword Volume from semrush</p>
 </dd>
 </dl>
