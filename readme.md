@@ -43,6 +43,7 @@ Returns Semrush Organic keywords for a specified domain
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
 | excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | date | <code>201601</code> | OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. |
+ nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 
 <a name="urlOrganicKeywords"></a>
 
@@ -59,6 +60,7 @@ Returns Ranking Semrush Organic keywords per URL
 | excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | limit | <code>&quot;10&quot;</code> | OPTIONAL Number from 1 to 10,000, for number of results |
 | db | <code>&quot;US&quot;</code> | OPTIONAL The database, example "US" for American database. Default is US |
+ nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 
 <a name="keywordDifficulty"></a>
 
@@ -74,6 +76,7 @@ Returns Semrush Keyword Difficulty for a keyword
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
+ nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 
 <a name="serps"></a>
 
@@ -89,6 +92,7 @@ Returns Semrush organic search results for a specific keyword
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | limit | <code>10</code> | OPTIONAL Number from 10 to 20, for number of results. Default is 10 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
+ nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 
 <a name="relatedQueries"></a>
 
@@ -105,6 +109,7 @@ Returns Related search queries for a keyword from Semrush
 | excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | limit | <code>10</code> | OPTIONAL The number of results. Default is 1 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
+ nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
 
 <a name="keywordVolume"></a>
 
@@ -120,3 +125,4 @@ Returns Keyword Volume from semrush
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from, default is "us" |
+ nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
