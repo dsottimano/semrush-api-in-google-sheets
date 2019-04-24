@@ -4,34 +4,60 @@
 ## Functions
 
 <dl>
-<dt><a href="#domainOrganicKeywords">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, excludeHeaders, date, nocache)</a> ⇒</dt>
+<dt><a href="#DOMAIN_OVERVIEW_SEMRUSH">DOMAIN_OVERVIEW_SEMRUSH(domain, db, date, excludeHeaders, nocache)</a> ⇒</dt>
+<dd><p>Returns Semrush domain history for a specified domain from January 2012 onwards</p>
+</dd>
+<dt><a href="#DOMAIN_ORGANIC_KEYWORDS_SEMRUSH">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, date, excludeHeaders, nocache)</a> ⇒</dt>
 <dd><p>Returns Semrush Organic keywords for a specified domain</p>
 </dd>
-<dt><a href="#urlOrganicKeywords">URL_ORGANIC_KEYWORDS_SEMRUSH(url, excludeHeaders, limit, db,nocache)</a> ⇒</dt>
+<dt><a href="#HISTORICAL_RANKING_KEYWORD_SEMRUSH">HISTORICAL_RANKING_KEYWORD_SEMRUSH(domain, query, limit, db, date, excludeHeaders, nocache)</a> ⇒</dt>
+<dd><p>Returns Historical rankings for domain/keyword combination</p>
+</dd>
+<dt><a href="#URL_ORGANIC_KEYWORDS_SEMRUSH">URL_ORGANIC_KEYWORDS_SEMRUSH(url, limit, db, excludeHeaders, nocache)</a> ⇒</dt>
 <dd><p>Returns Ranking Semrush Organic keywords per URL</p>
 </dd>
-<dt><a href="#keywordDifficulty">KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders, db,nocache)</a> ⇒</dt>
+<dt><a href="#KEYWORD_DIFFICULTY_SEMRUSH">KEYWORD_DIFFICULTY_SEMRUSH(query, db, excludeHeaders, nocache)</a> ⇒</dt>
 <dd><p>Returns Semrush Keyword Difficulty for a keyword</p>
 </dd>
-<dt><a href="#serps">SERPS_SEMRUSH(query, limit, db,nocache)</a> ⇒</dt>
+<dt><a href="#SERPS_SEMRUSH">SERPS_SEMRUSH(query, limit, db, excludeHeaders, nocache)</a> ⇒</dt>
 <dd><p>Returns Semrush organic search results for a specific keyword</p>
 </dd>
-<dt><a href="#relatedQueries">RELATED_QUERIES_SEMRUSH(query, excludeHeaders, limit, db,nocache)</a> ⇒</dt>
+<dt><a href="#RELATED_QUERIES_SEMRUSH">RELATED_QUERIES_SEMRUSH(query, limit, db, excludeHeaders, nocache)</a> ⇒</dt>
 <dd><p>Returns Related search queries for a keyword from Semrush</p>
 </dd>
-<dt><a href="#keywordVolume">KEYWORD_VOLUME_SEMRUSH(query, excludeHeaders, db,nocache)</a> ⇒</dt>
+<dt><a href="#KEYWORD_VOLUME_SEMRUSH">KEYWORD_VOLUME_SEMRUSH(query, db, excludeHeaders, nocache)</a> ⇒</dt>
 <dd><p>Returns Keyword Volume from semrush</p>
+</dd>
+<dt><a href="#PHRASE_QUESTIONS_SEMRUSH">PHRASE_QUESTIONS_SEMRUSH(query, limit, db, filterBySearchVolume, searchVolumeFilter, searchVolume, excludeHeaders, nocache)</a> ⇒</dt>
+<dd><p>Returns Questions asked for a keyword from Semrush</p>
 </dd>
 </dl>
 
-<a name="domainOrganicKeywords"></a>
+<a name="DOMAIN_OVERVIEW_SEMRUSH"></a>
 
-## DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain, filterBy, matchType, query, limit, db, excludeHeaders, date) ⇒
+## DOMAIN\_OVERVIEW\_SEMRUSH(domain, db, date, excludeHeaders, nocache) ⇒
+Returns Semrush domain history for a specified domain from January 2012 onwards
+
+**Kind**: global function  
+**Returns**: Returns organic keywords count, organic traffic, organic cost, adwords data  
+**Customfunction**:   
+
+| Param | Type | Description |
+| --- | --- | --- |
+| domain | <code>&quot;example.com&quot;</code> | REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https) |
+| db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
+| date | <code>201601</code> | OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
+
+<a name="DOMAIN_ORGANIC_KEYWORDS_SEMRUSH"></a>
+
+## DOMAIN\_ORGANIC\_KEYWORDS\_SEMRUSH(domain, filterBy, matchType, query, limit, db, date, excludeHeaders, nocache) ⇒
 Returns Semrush Organic keywords for a specified domain
 
-**Kind**: global function
-**Returns**: Access organic keywords for a domain from semrush.com database
-**Customfunction**:
+**Kind**: global function  
+**Returns**: Access organic keywords for a domain from semrush.com database.  
+**Customfunction**:   
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -41,88 +67,130 @@ Returns Semrush Organic keywords for a specified domain
 | query | <code>&quot;apartments&quot;</code> | OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes". |
 | limit | <code>10</code> | OPTIONAL Number from 1 to 10000 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
-| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | date | <code>201601</code> | OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. |
- nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
 
-<a name="urlOrganicKeywords"></a>
+<a name="HISTORICAL_RANKING_KEYWORD_SEMRUSH"></a>
 
-## URL_ORGANIC_KEYWORDS_SEMRUSH(url, excludeHeaders, limit, db) ⇒
+## HISTORICAL\_RANKING\_KEYWORD\_SEMRUSH(domain, query, limit, db, date, excludeHeaders, nocache) ⇒
+Returns Historical rankings for domain/keyword combination
+
+**Kind**: global function  
+**Returns**: Access organic keywords for a domain from semrush.com database  
+**Customfunction**:   
+
+| Param | Type | Description |
+| --- | --- | --- |
+| domain | <code>&quot;example.com&quot;</code> | REQUIRED The root domain, example: "nytimes.com", DO NOT include protocol (http/https) |
+| query | <code>&quot;apartments&quot;</code> | OPTIONAL The keyword you want to filter by. Relies on previous 2 parameters. Example: "brown shoes". |
+| limit | <code>10</code> | OPTIONAL Number from 1 to 10000 |
+| db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
+| date | <code>201601</code> | OPTIONAL Leave this blank for current data. YYYYMM format for historical reports, note: always reports on the 15th of the month. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
+
+<a name="URL_ORGANIC_KEYWORDS_SEMRUSH"></a>
+
+## URL\_ORGANIC\_KEYWORDS\_SEMRUSH(url, limit, db, excludeHeaders, nocache) ⇒
 Returns Ranking Semrush Organic keywords per URL
 
-**Kind**: global function
-**Returns**: Access organic keywords for a url from semrush.com database
-**Customfunction**:
+**Kind**: global function  
+**Returns**: Access organic keywords for a url from semrush.com database  
+**Customfunction**:   
 
-| Param | Example | Description |
+| Param | Type | Description |
 | --- | --- | --- |
 | url | <code>&quot;http://example.com&quot;</code> | REQUIRED The exact URL you want data for, MUST include protocol (http/https) |
-| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | limit | <code>&quot;10&quot;</code> | OPTIONAL Number from 1 to 10,000, for number of results |
 | db | <code>&quot;US&quot;</code> | OPTIONAL The database, example "US" for American database. Default is US |
- nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
 
-<a name="keywordDifficulty"></a>
+<a name="KEYWORD_DIFFICULTY_SEMRUSH"></a>
 
-## KEYWORD_DIFFICULTY_SEMRUSH(query, excludeHeaders, db) ⇒
+## KEYWORD\_DIFFICULTY\_SEMRUSH(query, db, excludeHeaders, nocache) ⇒
 Returns Semrush Keyword Difficulty for a keyword
 
-**Kind**: global function
-**Returns**: Access keyword difficulty for keyword from semrush
-**Customfunction**:
+**Kind**: global function  
+**Returns**: Access keyword difficulty for keyword from semrush  
+**Customfunction**:   
 
-| Param | Example | Description |
+| Param | Type | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
-| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
- nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
 
-<a name="serps"></a>
+<a name="SERPS_SEMRUSH"></a>
 
-## SERPS_SEMRUSH(query, limit, db) ⇒
+## SERPS\_SEMRUSH(query, limit, db, excludeHeaders, nocache) ⇒
 Returns Semrush organic search results for a specific keyword
 
-**Kind**: global function
-**Returns**: Access organic search results for a keyword from semrush.com database
-**Customfunction**:
+**Kind**: global function  
+**Returns**: Access organic search results for a keyword from semrush.com database  
+**Customfunction**:   
 
-| Param | Example | Description |
+| Param | Type | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
 | limit | <code>10</code> | OPTIONAL Number from 10 to 20, for number of results. Default is 10 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
- nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
 
-<a name="relatedQueries"></a>
+<a name="RELATED_QUERIES_SEMRUSH"></a>
 
-## RELATED_QUERIES_SEMRUSH(query, excludeHeaders, limit, db) ⇒
+## RELATED\_QUERIES\_SEMRUSH(query, limit, db, excludeHeaders, nocache) ⇒
 Returns Related search queries for a keyword from Semrush
 
-**Kind**: global function
-**Returns**: Returns related queries for a specific keyword from semrush.com
-**Customfunction**:
+**Kind**: global function  
+**Returns**: Returns related queries for a specific keyword from semrush.com  
+**Customfunction**:   
 
-| Param | Example | Description |
+| Param | Type | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
-| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | limit | <code>10</code> | OPTIONAL The number of results. Default is 1 |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
- nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
 
-<a name="keywordVolume"></a>
+<a name="KEYWORD_VOLUME_SEMRUSH"></a>
 
-## KEYWORD_VOLUME_SEMRUSH(query, excludeHeaders, db) ⇒
+## KEYWORD\_VOLUME\_SEMRUSH(query, db, excludeHeaders, nocache) ⇒
 Returns Keyword Volume from semrush
 
-**Kind**: global function
-**Returns**: Returns search volume, cpc, etc..
-**Customfunction**:
+**Kind**: global function  
+**Returns**: Returns search volume, cpc, etc..  
+**Customfunction**:   
 
-| Param | Example | Description |
+| Param | Type | Description |
 | --- | --- | --- |
 | query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
-| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
 | db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from, default is "us" |
- nocache | <code>true</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled)
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
+
+<a name="PHRASE_QUESTIONS_SEMRUSH"></a>
+
+## PHRASE\_QUESTIONS\_SEMRUSH(query, limit, db, filterBySearchVolume, searchVolumeFilter, searchVolume, excludeHeaders, nocache) ⇒
+Returns Questions asked for a keyword from Semrush
+
+**Kind**: global function  
+**Returns**: Returns Questions asked for a specific keyword from semrush.com  
+**Customfunction**:   
+
+| Param | Type | Description |
+| --- | --- | --- |
+| query | <code>&quot;apartments&quot;</code> | REQUIRED The keyword you want information for. Example: "brown shoes". |
+| limit | <code>10</code> | OPTIONAL The number of results. Default is 1 |
+| db | <code>&quot;us&quot;</code> | OPTIONAL The country database you want to search from. Default is US |
+| filterBySearchVolume | <code>true</code> | OPTIONAL If you want to filter by search volume, use TRUE, default is FALSE |
+| searchVolumeFilter | <code>&quot;&gt;&quot;</code> | OPTIONAL Filters the search volume parameter (next). Use ">" for Greater than, or "<" for Less than. Default is ">" greater than |
+| searchVolume | <code>1000</code> | OPTIONAL A search volume number (per month) you want to filter results by. Both previous parameters need to be set for this to work. |
+| excludeHeaders | <code>true</code> | OPTIONAL true to EXCLUDE column headers or false to include. Default is false. |
+| nocache | <code>&quot;FALSE&quot;</code> | OPTIONAL use TRUE if you don't want to cache these results, default is FALSE (cache enabled) |
+
+
