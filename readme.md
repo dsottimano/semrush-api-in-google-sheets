@@ -1,6 +1,7 @@
 ## Read the Blog post first : 
 <a href="http://opensourceseo.org/semrush-api-library-google-sheets-google-scripts">Semrush API Google sheets</a>
 
+## Quick start - no installation needed : 
 Make a copy of the <a href="https://docs.google.com/spreadsheets/d/1hmcQ1atJXeXHmwJaq9NjIuqBHZD1xgXiG-LVetmV4NY/edit#gid=0">master spreadsheet</a> with the script and you're ready to go!
 
 ## Functions
