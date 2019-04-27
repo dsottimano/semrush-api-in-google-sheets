@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<base target="_top">
+
+<style> 
+.white-color {
+color:white !important;
+}
+
+.remove-border {
+border:none !important;
+}
+
+.force-white-bg {
+background-color:white !important;
+}
+
+p {
+font-size:14px !important;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="row">
+<div class="col text-center">
+<p class="my-2 text-center font-weight-bold">Opensourceseo.org</p>
+<p><a href="https://opensourceseo.org/semrush-api-library-google-sheets-google-scripts/">Semrush Library Reference (see post)</a></p>
+</div>
+</div>
+<div id="accordion text-center">
+  <div class="card bg-light remove-border">
+    <div class="card-header text-center force-white-bg" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn bg-primary white-color" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Domain API Calls
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+<p class="font-weight-bold">DOMAIN_ORGANIC_KEYWORDS_SEMRUSH</p>
+<p><b>Params:</b> (domain, filterBy, matchType, query, limit, db, excludeHeaders, date, cache)</p>
+<p><b>Returns:</b> lists keywords that bring users to a domain via Google’s top 20 organic search results.</p>
+
+<p class="font-weight-bold">DOMAIN_OVERVIEW_SEMRUSH</p>
+<p><b>Params:</b> (query, excludeHeaders, db, cache)</p>
+<p><b>Returns:</b> provides live or historical data on a domain’s keyword rankings in both organic and paid search in a chosen regional database.</p>
+</div>
+    </div>
+  </div>
+  <div class="card bg-light remove-border">
+    <div class="card-header text-center force-white-bg" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn bg-primary white-color" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Keyword API Calls
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+
+<p class="font-weight-bold">KEYWORD_DIFFICULTY_SEMRUSH</p>
+<p><b>Params:</b> (query, excludeHeaders, db, cache)</p>
+<p><b>Returns:</b> provides keyword difficulty, an index that helps to estimate how difficult it would be to seize competitors’ positions in organic search within the Google’s top 20 with an indicated search term</p>
+
+<p class="font-weight-bold">KEYWORD_VOLUME_SEMRUSH</p>
+<p><b>Params:</b> (query, excludeHeaders, db, cache)</p>
+<p><b>Returns:</b> provides a summary of a keyword, including its volume, CPC, competition, and the number of results in all regional databases</p>
+
+<p class="font-weight-bold">RELATED_QUERIES_SEMRUSH</p>
+<p><b>Params:</b> (query, excludeHeaders, limit, db, cache)</p>
+<p><b>Returns:</b> provides an extended list of related keywords, synonyms, and variations relevant to a queried term in a chosen database.</p>
+
+<p class="font-weight-bold">PHRASE_QUESTIONS_SEMRUSH</p>
+<p><b>Params:</b> (query, limit, db, filterBySearchVolume, searchVolumeFilter, searchVolume, excludeHeaders, cache)</p>
+<p><b>Returns:</b> provides a list of phrase questions relevant to a queried term in a chosen database</p>
+
+
+</div>
+    </div>
+  </div>
+  <div class="card bg-light remove-border">
+    <div class="card-header text-center force-white-bg" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn bg-primary white-color" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          SERP and URL Calls
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+
+<p class="font-weight-bold">URL_ORGANIC_KEYWORDS_SEMRUSH</p>
+<p><b>Params:</b> (url, excludeHeaders, limit, db, cache)</p>
+<p><b>Returns:</b> lists keywords that bring users to a URL via Google’s top 20 organic search results..</p>
+
+<p class="font-weight-bold">SERPS_SEMRUSH</p>
+<p><b>Params:</b> (query,limit,db,excludeHeaders,cache)</p>
+<p><b>Returns:</b> lists domains that are ranking in Google’s top 20 organic search results with a requested keyword.</p>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
