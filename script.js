@@ -171,13 +171,13 @@ var ROOT_ = {
 }
 
 function CACHE_TEST (data,cache) {
-  if (!cache) {
+  if (cache) {
     var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
     var cachedResult = ROOT_.checkCache(cacheStringName); 
     if (cachedResult) return cachedResult + " from Cache! :)";
   } 
   
-  if (!cache) ROOT_.addToCache(cacheStringName,data);
+  if (cache) ROOT_.addToCache(cacheStringName,data);
   return data
   
 }
@@ -272,7 +272,7 @@ function DOMAIN_OVERVIEW_SEMRUSH(domain,db,date,excludeHeaders,cache) {
     date ? displayDate+= date + "15" : displayDate = "";
     SemrushGlobal.methods.giveApiRest();
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName); 
       if (cachedResult) return cachedResult;
@@ -280,7 +280,7 @@ function DOMAIN_OVERVIEW_SEMRUSH(domain,db,date,excludeHeaders,cache) {
     
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOverview+SemrushGlobal.data.API_KEY+"&export_columns=Or,Ot,Oc,Ad,At,Ac&domain="+domain+"&database="+db+displayDate).getContentText()
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
   } catch (e) {
     return e;
@@ -364,7 +364,7 @@ function HISTORICAL_RANKING_KEYWORD_SEMRUSH(domain,query,limit,db,date,excludeHe
     var accountCheck = SemrushGlobal.methods.checkAccount() 
     if (!accountCheck[0]) return accountCheck[1] 
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments)
       var cachedResult = ROOT_.checkCache(cacheStringName) 
       if (cachedResult) return cachedResult
@@ -375,7 +375,7 @@ function HISTORICAL_RANKING_KEYWORD_SEMRUSH(domain,query,limit,db,date,excludeHe
     
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOrganic+SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Po&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+"%7C"+query+displayDate).getContentText()
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
   } catch (e) {
     return e
@@ -410,7 +410,7 @@ function URL_ORGANIC_KEYWORDS_SEMRUSH(url,limit,db,excludeHeaders,cache) {
     var accountCheck = SemrushGlobal.methods.checkAccount() 
     if (!accountCheck[0]) return accountCheck[1] 
    
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName);
       if (cachedResult) return cachedResult;
@@ -420,7 +420,7 @@ function URL_ORGANIC_KEYWORDS_SEMRUSH(url,limit,db,excludeHeaders,cache) {
     
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.urlOrganic + SemrushGlobal.data.API_KEY+ "&display_limit="+limit+"&export_columns=Ph,Po,Nq,Cp,Co,Tr,Tc,Nr,Td&url="+url+"&database="+db).getContentText();
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
     return e;
@@ -449,7 +449,7 @@ function KEYWORD_DIFFICULTY_SEMRUSH(query,db,excludeHeaders,cache) {
     var accountCheck = SemrushGlobal.methods.checkAccount() 
     if (!accountCheck[0]) return accountCheck[1] 
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName); 
       if (cachedResult) return cachedResult;
@@ -457,7 +457,7 @@ function KEYWORD_DIFFICULTY_SEMRUSH(query,db,excludeHeaders,cache) {
     SemrushGlobal.methods.giveApiRest();
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.keywordDifficulty + SemrushGlobal.data.API_KEY+ "&export_columns=Ph,Kd&phrase="+query+"&database=" + db).getContentText();
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
     return e
@@ -487,7 +487,7 @@ function SERPS_SEMRUSH(query,limit,db,excludeHeaders,cache) {
     if (!accountCheck[0]) return accountCheck[1]  
     
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName);
       if (cachedResult) return cachedResult;
@@ -496,7 +496,7 @@ function SERPS_SEMRUSH(query,limit,db,excludeHeaders,cache) {
     SemrushGlobal.methods.giveApiRest();
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.phraseOrganic + SemrushGlobal.data.API_KEY+"&phrase="+query+"&export_columns=Dn,Ur,Fl&database="+db+"&display_limit="+limit).getContentText();
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result);
   } catch (e) {
     return e
@@ -525,7 +525,7 @@ function RELATED_QUERIES_SEMRUSH(query,limit,db,excludeHeaders,cache) {
     var accountCheck = SemrushGlobal.methods.checkAccount() 
     if (!accountCheck[0]) return accountCheck[1]  
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName); 
       if (cachedResult) return cachedResult;
@@ -534,7 +534,7 @@ function RELATED_QUERIES_SEMRUSH(query,limit,db,excludeHeaders,cache) {
     
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.relatedQueries + SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Nq,Cp,Co,Nr,Td&phrase="+query+"&database="+db+"&display_sort=nq_desc").getContentText();
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
     return e;
@@ -564,7 +564,7 @@ function KEYWORD_VOLUME_SEMRUSH(query,db,excludeHeaders,cache) {
     
     if (query.map) throw "Sorry, the query parameter cannot be an array of values. It needs to be a single string"
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName); 
       if (cachedResult) return cachedResult;
@@ -572,7 +572,7 @@ function KEYWORD_VOLUME_SEMRUSH(query,db,excludeHeaders,cache) {
     
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.keywordVolume + SemrushGlobal.data.API_KEY+"&export_columns=Ph,Nq,Cp,Co&phrase="+query+"&database="+db).getContentText();
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
     
   } catch (e) {
@@ -606,7 +606,7 @@ function PHRASE_QUESTIONS_SEMRUSH(query,limit,db,filterBySearchVolume,searchVolu
     var accountCheck = SemrushGlobal.methods.checkAccount() 
     if (!accountCheck[0]) return accountCheck[1]  
     
-    if (!cache) {
+    if (cache) {
       var cacheStringName = ROOT_.encode(arguments.callee.name,arguments);
       var cachedResult = ROOT_.checkCache(cacheStringName); 
       if (cachedResult) return cachedResult;
@@ -615,7 +615,7 @@ function PHRASE_QUESTIONS_SEMRUSH(query,limit,db,filterBySearchVolume,searchVolu
     filterBySearchVolume? filterBySearchVolume = "&display_filter=%2B%7CNq%7C"+searchVolumeFilter+"%7C"+searchVolume: filterBySearchVolume = ""
     var result = UrlFetchApp.fetch(SemrushGlobal.queries.phraseQuestions + SemrushGlobal.data.API_KEY+"&phrase="+query+"&export_columns=Ph,Nq,Cp,Co,Nr,Td&database="+db+"&display_limit="+limit+"&display_sort=nq_desc"+filterBySearchVolume).getContentText();
     if (result.indexOf("ERROR") > -1) throw result.trim()
-    if (!cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
+    if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
   } catch(e) {
     return e;
