@@ -329,7 +329,7 @@ function DOMAIN_ORGANIC_KEYWORDS_SEMRUSH(domain,filterBy,matchType,query,limit,d
     
     SemrushGlobal.methods.giveApiRest();
     
-    var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOrganic+SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Po,Ur,Tr&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+query+displayDate).getContentText()
+    var result = UrlFetchApp.fetch(SemrushGlobal.queries.domainOrganic+SemrushGlobal.data.API_KEY+"&display_limit="+limit+"&export_columns=Ph,Po,Pp,Pd,Nq,Cp,Ur,Tr,Tc,Co,Nr,Td&domain="+domain+"&display_sort=tr_desc&database="+db+"&display_filter="+filterBy+"%7CPh%7C"+matchType+query+displayDate).getContentText()
     if (result.indexOf("ERROR") > -1) throw result.trim()
     if (cache) ROOT_.addToCache(cacheStringName, SemrushGlobal.methods.parseApiResponse(result,excludeHeaders));
     return SemrushGlobal.methods.parseApiResponse(result,excludeHeaders);
